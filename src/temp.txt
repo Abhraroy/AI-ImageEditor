@@ -1,0 +1,39 @@
+return (
+    <>
+      <div className="flex flex-col gap-4 items-center justify-center h-screen w-screen">
+        {/* File input element using React ref */}
+        <input
+          className="bg-gray-300 text-black p-2 rounded-md"
+          type="file"
+          ref={fileInputRef}
+          placeholder="Upload file"
+        />
+        {/* Button to trigger the upload process */}
+        <button
+          className="bg-blue-500 text-white p-2 rounded-md"
+          type="button"
+          onClick={handleUpload}
+        >
+          Upload file
+        </button>
+        <br />
+        {/* Display the current upload progress */}
+        Upload progress: <progress value={progress} max={100}></progress>
+        <div className="w-[200px] h-[200px]">
+          {image && (
+            <img src={image} alt="Uploaded image" className="object-contain" />
+          )}
+        </div>
+        <button
+          className="bg-blue-500 text-white p-2 rounded-md"
+          type="button"
+          onClick={handleTransform}
+        >
+          Transform
+        </button>
+        <a href={`${image}?ik-attachment=true`} download="my-picture.png">
+          <button>Download Image</button>
+        </a>
+      </div>
+    </>
+  );
