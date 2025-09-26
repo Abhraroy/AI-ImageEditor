@@ -13,6 +13,7 @@ import useMyStore from "@/zustandStore/zustandStore";
 
 
 import { useRef, useState } from "react";
+import EditBar from "@/myComponents/EditBar";
 
 // UploadExample component demonstrates file uploading using ImageKit's Next.js SDK.
 const UploadExample = () => {
@@ -138,23 +139,11 @@ const UploadExample = () => {
     }
   };
 
-  const handleTransform = () => {
-    console.log("Transform");
-    console.log(imageLink);
-    console.log(image.split("/"));
-    let parts = imageLink.split("/");
-    let index = parts.indexOf("khskk8qsz");
-    if (index !== -1) {
-      parts.splice(index + 1, 0, "tr:w-500,h-100,fo-custom");
-    }
-    let newUrl = parts.join("/");
-    console.log(newUrl);
-    setImageLink(newUrl);
-  };
+  
 
   return (
     <>
-      <div className="flex flex-col items-center justify-center gap-[1rem]  w-screen h-screen" >
+      <div className="flex flex-col items-center justify-center gap-[1rem] w-screen h-screen bg-black " >
         <div className="w-[70%] h-[6vh]  rounded-[1.5rem] flex flex-row items-center gap-[1rem] " >
         <input
           className="bg-gray-300 text-black p-2 rounded-md hidden "
@@ -189,7 +178,9 @@ const UploadExample = () => {
               </>:<span className="text-white font-bold "  >No image selected</span>
             }
           </div>
-          <div className="flex-1 h-[100%] border-2 border-gray-400 rounded-[1.5rem]" ></div>
+          <div className="flex-1 h-[100%] border-2 border-gray-400 rounded-[1.5rem]" >
+            <EditBar />
+          </div>
         </div>
         
         

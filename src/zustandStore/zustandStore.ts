@@ -6,8 +6,10 @@ const useMyStore = create((set)=>({
     setImageLink:(imageLink:string)=>set({imageLink}),
     transformedImageLink:null,
     setTransformedImageLink:(transformedImageLink:string)=>set({transformedImageLink}),
-    transFormationInstructions:null,
-    setTransFormationInstructions:(transFormationInstructions:string)=>set({transFormationInstructions}),
+    transFormationInstructions:"",
+    setTransFormationInstructions:(payload:string)=>set((state:any)=>({
+        transFormationInstructions:state.transFormationInstructions + payload
+    })),
     isTransforming:false,
     setIsTransforming:(isTransforming:boolean)=>set({isTransforming}),
     isUploading:false,
