@@ -1,4 +1,20 @@
 "use client"; // This component must be a client component
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+
+import { FaCropSimple,FaLayerGroup,FaWandMagicSparkles } from "react-icons/fa6";
+import { IoSparkles } from "react-icons/io5";
+
+
+
+
+
+
+
+
 
 import {
   ImageKitAbortError,
@@ -11,15 +27,32 @@ import image from "next/image";
 
 import useMyStore from "@/zustandStore/zustandStore";
 
-
 import { useRef, useState } from "react";
-import EditBar from "@/myComponents/EditBar";
+import EditBar1 from "@/myComponents/EditBar1";
+import EditBar2 from "@/myComponents/EditBar2";
+import EditBar3 from "@/myComponents/EditBar3";
+import EditBar4 from "@/myComponents/EditBar4";
 
 // UploadExample component demonstrates file uploading using ImageKit's Next.js SDK.
 const UploadExample = () => {
   // State to keep track of the current upload progress (percentage)
   const [progress, setProgress] = useState(0);
-  const {imageLink, setImageLink, transformedImageLink, setTransformedImageLink, transFormationInstructions, setTransFormationInstructions, isTransforming, setIsTransforming, isUploading, setIsUploading, isDownloading, setIsDownloading} = useMyStore();
+  const {
+    imageLink,
+    setImageLink,
+    transformedImageLink,
+    setTransformedImageLink,
+    transFormationInstructions,
+    setTransFormationInstructions,
+    isTransforming,
+    setIsTransforming,
+    isUploading,
+    setIsUploading,
+    isDownloading,
+    setIsDownloading,
+    EditBarNo,
+    setEditBarNo,
+  } = useMyStore();
 
   // Create a ref for the file input element to access its files easily
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -70,22 +103,19 @@ const UploadExample = () => {
    * - Catches and processes errors accordingly.
    */
 
-
-
   const openFileInput = () => {
     fileInputRef.current?.click();
-  }
+  };
 
-  const handleFileChange = (e:React.ChangeEvent<HTMLInputElement>) => {
-    if(e.target.files && e.target.files.length > 0) {
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
       console.log("Selected file:", file);
       handleUpload(file);
     }
-  }
+  };
 
-  
-  const handleUpload = async (file:File) => {
+  const handleUpload = async (file: File) => {
     // Access the file input element using the ref
     if (!file) {
       alert("Please select a file to upload");
@@ -139,53 +169,104 @@ const UploadExample = () => {
     }
   };
 
-  
-
   return (
     <>
-      <div className="flex flex-col items-center justify-center gap-[1rem] w-screen h-screen bg-black " >
-        <div className="w-[70%] h-[6vh]  rounded-[1.5rem] flex flex-row items-center gap-[1rem] " >
-        <input
-          className="bg-gray-300 text-black p-2 rounded-md hidden "
-          type="file"
-          ref={fileInputRef}
-          placeholder="Upload file"
-          onChange={handleFileChange}
-        />
-        <button
-          className="bg-blue-500 text-white p-2 rounded-md"
-          type="button"
-          onClick={openFileInput}
-        >
-          Upload file
-        </button>
+      <div className="flex flex-col items-center justify-center gap-[1rem] w-screen h-screen bg-black ">
+        <div className="w-[70%] h-[6vh]  rounded-[1.5rem] flex flex-row items-center gap-[1rem] ">
+          <input
+            className="bg-gray-300 text-black p-2 rounded-md hidden "
+            type="file"
+            ref={fileInputRef}
+            placeholder="Upload file"
+            onChange={handleFileChange}
+          />
+          <button
+            className="bg-blue-500 text-white p-2 rounded-md"
+            type="button"
+            onClick={openFileInput}
+          >
+            Upload file
+          </button>
         </div>
-        
-        <div className="w-[70%] h-[6vh] border-2 border-gray-400 rounded-[1.5rem] flex flex-row items-center p-4  gap-[1rem] " >
-          {
-            imageLink && isUploading ?<>
-            <span className="text-white font-bold "  >{imageLink}</span>
-            </> :
-            <span className="text-white font-bold "  >No image selected</span>
-          }
+
+        <div className="w-[70%] h-[6vh] border-2 border-gray-400 rounded-[1.5rem] flex flex-row items-center p-4  gap-[1rem] ">
+          {imageLink && isUploading ? (
+            <>
+              <span className="text-white font-bold ">{imageLink}</span>
+            </>
+          ) : (
+            <span className="text-white font-bold ">No image selected</span>
+          )}
         </div>
-        
-        <div className="w-[70%] h-[59vh]  flex flex-row gap-[1rem] " >
-          <div className="w-[75%] h-[100%] border-2 border-gray-400 rounded-[1.5rem] flex flex-row items-center justify-center p-4 " >
-            {
-              imageLink ?<>
-              <img src={imageLink} alt="image" className="w-[100%] h-[100%] object-contain" />
-              </>:<span className="text-white font-bold "  >No image selected</span>
-            }
+
+        <div className="w-[70%] h-[59vh]  flex flex-row gap-[1rem] ">
+          <div className="w-[75%] h-[100%] border-2 border-gray-400 rounded-[1.5rem] flex flex-row items-center justify-center p-4 ">
+            {imageLink && !transformedImageLink ? (
+              <>
+                <img
+                  src={imageLink}
+                  alt="image"
+                  className="w-[100%] h-[100%] object-contain"
+                />
+              </>
+            ) : imageLink && transformedImageLink ? (
+              <img
+                src={transformedImageLink}
+                alt="image"
+                className="w-[100%] h-[100%] object-contain"
+              />
+            ) : (
+              <span className="text-white font-bold ">No image selected</span>
+            )}
           </div>
-          <div className="flex-1 h-[100%] border-2 border-gray-400 rounded-[1.5rem]" >
-            <EditBar />
+          <div className="flex-1 h-[100%] border-2 border-gray-400 rounded-[1.5rem]">
+            {EditBarNo === 1 && (
+            <EditBar1 />
+            )}
+            {EditBarNo === 2 && (
+              <EditBar2 />
+            )}
+            {EditBarNo === 3 && (
+              <EditBar3 />
+            )}
+            {EditBarNo === 4 && (
+              <EditBar4 />
+            )}
           </div>
         </div>
-        
-        
-        
-        <div className="w-[70%] h-[6vh] border-2 border-gray-400 rounded-[1.5rem]" ></div>
+
+        <div className="w-[70%] h-[6vh]  rounded-[1.5rem] flex flex-row items-center justify-center gap-[1rem] text-white ">
+          <Tooltip>
+            <TooltipTrigger className="text-white p-4 rounded-full bg-gray-900 "
+            
+            onClick={()=>setEditBarNo(1)}><FaCropSimple /></TooltipTrigger>
+            <TooltipContent className="text-white bg-gray-900 ">
+              <p>Resize & Crop</p>
+            </TooltipContent>
+          </Tooltip>
+          <Tooltip>
+            <TooltipTrigger className="text-white p-4 rounded-full bg-gray-900 "
+            onClick={()=>setEditBarNo(2)}><FaLayerGroup /></TooltipTrigger>
+            <TooltipContent className="text-white bg-gray-900 ">
+              <p>Overlays</p>
+            </TooltipContent>
+          </Tooltip>
+          <Tooltip>
+            <TooltipTrigger className="text-white p-4 rounded-full bg-gray-900 "
+            onClick={()=>setEditBarNo(3)}><FaWandMagicSparkles /></TooltipTrigger>
+            <TooltipContent className="text-white bg-gray-900 ">
+              <p>AI Transformation</p>
+            </TooltipContent>
+          </Tooltip>
+          <Tooltip>
+            <TooltipTrigger className="text-white p-4 rounded-full bg-gray-900 "
+            onClick={()=>setEditBarNo(4)}><IoSparkles /></TooltipTrigger>
+            <TooltipContent className="text-white bg-gray-900 ">
+              <p>Effects & Enhancements</p>
+            </TooltipContent>
+          </Tooltip>
+          
+        </div>
       </div>
     </>
   );
