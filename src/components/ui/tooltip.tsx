@@ -5,6 +5,7 @@ import * as TooltipPrimitive from "@radix-ui/react-tooltip"
 
 import { cn } from "@/lib/utils"
 
+// TooltipProvider for top-level usage (wrap your app or component tree once)
 function TooltipProvider({
   delayDuration = 0,
   ...props
@@ -18,14 +19,11 @@ function TooltipProvider({
   )
 }
 
+// Tooltip just renders the Root — no nested provider
 function Tooltip({
   ...props
 }: React.ComponentProps<typeof TooltipPrimitive.Root>) {
-  return (
-    <TooltipProvider>
-      <TooltipPrimitive.Root data-slot="tooltip" {...props} />
-    </TooltipProvider>
-  )
+  return <TooltipPrimitive.Root data-slot="tooltip" {...props} />
 }
 
 function TooltipTrigger({

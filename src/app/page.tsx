@@ -3,6 +3,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
+  TooltipProvider,
 } from "@/components/ui/tooltip";
 
 import { FaCropSimple,FaLayerGroup,FaWandMagicSparkles } from "react-icons/fa6";
@@ -32,6 +33,7 @@ import EditBar1 from "@/myComponents/EditBar1";
 import EditBar2 from "@/myComponents/EditBar2";
 import EditBar3 from "@/myComponents/EditBar3";
 import EditBar4 from "@/myComponents/EditBar4";
+import CustomTooltip from "@/myComponents/customtooltip";
 
 // UploadExample component demonstrates file uploading using ImageKit's Next.js SDK.
 const UploadExample = () => {
@@ -171,8 +173,11 @@ const UploadExample = () => {
     }
   };
 
+
+
   return (
     <>
+    <TooltipProvider>
       <div className="flex flex-col items-center justify-center gap-[1rem] w-screen h-screen bg-black ">
         <div className="w-[70%] h-[6vh]  rounded-[1.5rem] flex flex-row items-center gap-[1rem] ">
           <input
@@ -193,7 +198,7 @@ const UploadExample = () => {
         </div>
 
         <div className="w-[70%] h-[6vh] border-2 border-gray-400 rounded-[1.5rem] flex flex-row items-center p-4  gap-[1rem] ">
-          {imageLink && isUploading ? (
+          {imageLink ? (
             <>
               <span className="text-white font-bold ">{imageLink}</span>
             </>
@@ -238,39 +243,9 @@ const UploadExample = () => {
           </div>
         </div>
 
-        <div className="w-[70%] h-[6vh]  rounded-[1.5rem] flex flex-row items-center justify-center gap-[1rem] text-white ">
-          <Tooltip>
-            <TooltipTrigger className="text-white p-4 rounded-full bg-gray-900 "
-            
-            onClick={()=>setEditBarNo(1)}><FaCropSimple /></TooltipTrigger>
-            <TooltipContent className="text-white bg-gray-900 ">
-              <p>Resize & Crop</p>
-            </TooltipContent>
-          </Tooltip>
-          <Tooltip>
-            <TooltipTrigger className="text-white p-4 rounded-full bg-gray-900 "
-            onClick={()=>setEditBarNo(2)}><FaLayerGroup /></TooltipTrigger>
-            <TooltipContent className="text-white bg-gray-900 ">
-              <p>Overlays</p>
-            </TooltipContent>
-          </Tooltip>
-          <Tooltip>
-            <TooltipTrigger className="text-white p-4 rounded-full bg-gray-900 "
-            onClick={()=>setEditBarNo(3)}><FaWandMagicSparkles /></TooltipTrigger>
-            <TooltipContent className="text-white bg-gray-900 ">
-              <p>AI Transformation</p>
-            </TooltipContent>
-          </Tooltip>
-          <Tooltip>
-            <TooltipTrigger className="text-white p-4 rounded-full bg-gray-900 "
-            onClick={()=>setEditBarNo(4)}><IoSparkles /></TooltipTrigger>
-            <TooltipContent className="text-white bg-gray-900 ">
-              <p>Effects & Enhancements</p>
-            </TooltipContent>
-          </Tooltip>
-          
-        </div>
+        <CustomTooltip />
       </div>
+      </TooltipProvider>
     </>
   );
 };

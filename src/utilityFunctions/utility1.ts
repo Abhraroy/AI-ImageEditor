@@ -2,13 +2,30 @@ import useMyStore from "@/zustandStore/zustandStore";
 
 export const handleTransform = (imageLink: string, setImageLink: any) => {
   if (imageLink) {
-    const { setTransformedImageLink, transFormationInstructions, aspectRatio, width, height, cropMode, imageFocus, zoom, dpr, text } = useMyStore.getState() as any;
+    const {
+      setTransformedImageLink,
+      transFormationInstructions,
+      aspectRatio,
+      width,
+      height,
+      cropMode,
+      imageFocus,
+      zoom,
+      dpr,
+      text,
+      removeBackground,
+      changeBackground,
+      generativeFill,
+      editUsingAI,
+    } = useMyStore.getState() as any;
 
     console.log("Transform");
     console.log(imageLink);
-    
+
     console.log("transFormationInstructions:", transFormationInstructions);
-    let newUrl = imageLink+`?tr=${text},${aspectRatio},${width},${height},${cropMode},${imageFocus},${zoom},${dpr}`;
+    let newUrl =
+      imageLink +
+      `?tr=${text},${removeBackground},${changeBackground},${generativeFill},${editUsingAI},${aspectRatio},${width},${height},${cropMode},${imageFocus},${zoom},${dpr}`;
     console.log("New URL:", newUrl);
     setTransformedImageLink(newUrl);
   } else {
@@ -16,16 +33,23 @@ export const handleTransform = (imageLink: string, setImageLink: any) => {
   }
 };
 
-
-
-
-
 export const handleOverlay = (imageLink: string, setImageLink: any) => {
   if (imageLink) {
-    const { setTransformedImageLink, transFormationInstructions, aspectRatio, width, height, cropMode, imageFocus, zoom, dpr, text } = useMyStore.getState() as any;
+    const {
+      setTransformedImageLink,
+      transFormationInstructions,
+      aspectRatio,
+      width,
+      height,
+      cropMode,
+      imageFocus,
+      zoom,
+      dpr,
+      text,
+    } = useMyStore.getState() as any;
 
     console.log("Overlay");
     console.log(imageLink);
-    setTransformedImageLink(imageLink+``);
+    setTransformedImageLink(imageLink + ``);
   }
-}
+};

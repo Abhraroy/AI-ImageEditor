@@ -37,6 +37,14 @@ const useMyStore = create((set)=>({
     setText:(text:string)=>set({text}),
     textFont:20,
     setTextFont:(textFont:number)=>set({textFont}),
+    removeBackground:"",
+    setRemoveBackground:(removeBackground:string)=>set({removeBackground}),
+    changeBackground:"",
+    setChangeBackground:(changeBackground:string)=>set({changeBackground}),
+    generativeFill:"",
+    setGenerativeFill:(generativeFill:string)=>set({generativeFill}),
+    editUsingAI:"",
+    setEditUsingAI:(editUsingAI:string)=>set({editUsingAI}),
    
 }))
 export default useMyStore;
