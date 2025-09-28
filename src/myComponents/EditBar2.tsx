@@ -5,7 +5,7 @@ import {
     AccordionTrigger,
   } from "@/components/ui/accordion";
   import useMyStore from "@/zustandStore/zustandStore";
-  import handleTransform from "@/utilityFunctions/utility1";
+  import { handleTransform } from "@/utilityFunctions/utility1";
   import { useEffect } from "react";
   
   export default function EditBar2() {
@@ -36,8 +36,17 @@ import {
       setZoom,
       setDpr,
       dpr,
+      text,
+      setText,
+      textFont,
+      setTextFont,
     } = useMyStore() as any;
   
+
+    useEffect(() => {
+        console.log("text:", text);
+        handleTransform(imageLink, setImageLink);
+      }, [text]);
     
     
   
@@ -104,44 +113,30 @@ import {
               value="item-2"
               className="border-b-1  border-gray-800 "
             >
-              <AccordionTrigger>Focus & Zoom</AccordionTrigger>
+              <AccordionTrigger>Add Text</AccordionTrigger>
               <AccordionContent>
                 <div className="flex flex-col items-start gap-[1rem]  ">
-                  <select
-                    name="imageFocus"
-                    id="imageFocus"
-                    className=" p-2 rounded text-white bg-gray-800 outline-none "
-                    onChange={(e) => setImageFocus(`${e.target.value}`)}
-                  >
-                    <option value="fo-top">Top</option>
-                    <option value="fo-bottom">Bottom</option>
-                    <option value="fo-left">Left</option>
-                    <option value="fo-right">Right</option>
-                    <option value="fo-center">Center</option>
-                    <option value="fo-top_left">Top Left</option>
-                    <option value="fo-top_right">Top Right</option>
-                    <option value="fo-bottom_left">Bottom Left</option>
-                    <option value="fo-bottom_right">Bottom Right</option>
-                    <option value="fo-face">Face</option>
-                  </select>
-                  <span>Zoom</span>
+                  
+                  <span>Text</span>
                   <input
-                    type="range"
-                    min="0"
-                    max="10"
-                    step="0.1"
-                    className="w-full bg-gray-800 rounded-md outline-none "
-                    onChange={(e) => setZoom(`z-${e.target.value}`)}
+                    type="text"
+                    className="w-full text-white bg-gray-800 rounded-md p-2 outline-none "
+                    placeholder="Enter text"
+                    onChange={(e) => setText(`l-text,i-${e.target.value},fs-${textFont},l-end`)}
                   />
                   <button
                     className="bg-gray-800 rounded-md p-2 outline-none "
-                    onClick={() => {
-                      setZoom("");
-                      setImageFocus("");
-                    }}
+                    
                   >
-                    Reset zoom & focus
+                    Add Text
                   </button>
+                  <input
+                    type="number"
+                    className="w-full text-white bg-gray-800 rounded-md p-2 outline-none "
+                    placeholder="Enter text"
+                    value={textFont}
+                    onChange={(e) => setTextFont(parseInt(e.target.value))}
+                  />
                 </div>
               </AccordionContent>
             </AccordionItem>

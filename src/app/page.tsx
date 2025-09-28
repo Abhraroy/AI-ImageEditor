@@ -135,6 +135,7 @@ const UploadExample = () => {
     // Call the ImageKit SDK upload function with the required parameters and callbacks.
     try {
       setIsUploading(true);
+      console.log("Uploading file:", file);
       const uploadResponse = await upload({
         // Authentication parameters
         expire,
@@ -152,6 +153,7 @@ const UploadExample = () => {
       });
       console.log("Upload response:", uploadResponse);
       setImageLink(uploadResponse.url as string);
+      setIsUploading(false);
     } catch (error) {
       // Handle specific error types provided by the ImageKit SDK.
       if (error instanceof ImageKitAbortError) {
@@ -187,6 +189,7 @@ const UploadExample = () => {
           >
             Upload file
           </button>
+          Upload progress: <progress value={progress} max={100}></progress>
         </div>
 
         <div className="w-[70%] h-[6vh] border-2 border-gray-400 rounded-[1.5rem] flex flex-row items-center p-4  gap-[1rem] ">

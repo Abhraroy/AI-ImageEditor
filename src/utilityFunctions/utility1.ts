@@ -1,19 +1,14 @@
 import useMyStore from "@/zustandStore/zustandStore";
 
-const handleTransform = (imageLink: string, setImageLink: any) => {
+export const handleTransform = (imageLink: string, setImageLink: any) => {
   if (imageLink) {
-    const { setTransformedImageLink, transFormationInstructions, aspectRatio, width, height, cropMode, imageFocus, zoom, dpr } = useMyStore.getState() as any;
+    const { setTransformedImageLink, transFormationInstructions, aspectRatio, width, height, cropMode, imageFocus, zoom, dpr, text } = useMyStore.getState() as any;
 
     console.log("Transform");
     console.log(imageLink);
-    console.log(imageLink.split("/"));
-    let parts = imageLink.split("/");
-    let index = parts.indexOf("khskk8qsz");
+    
     console.log("transFormationInstructions:", transFormationInstructions);
-    if (index !== -1) {
-      parts.splice(index + 1, 0, `tr:${aspectRatio},${width},${height},${cropMode},${imageFocus},${zoom},${dpr}`);
-    }
-    let newUrl = parts.join("/");
+    let newUrl = imageLink+`?tr=${text},${aspectRatio},${width},${height},${cropMode},${imageFocus},${zoom},${dpr}`;
     console.log("New URL:", newUrl);
     setTransformedImageLink(newUrl);
   } else {
@@ -21,4 +16,16 @@ const handleTransform = (imageLink: string, setImageLink: any) => {
   }
 };
 
-export default handleTransform;
+
+
+
+
+export const handleOverlay = (imageLink: string, setImageLink: any) => {
+  if (imageLink) {
+    const { setTransformedImageLink, transFormationInstructions, aspectRatio, width, height, cropMode, imageFocus, zoom, dpr, text } = useMyStore.getState() as any;
+
+    console.log("Overlay");
+    console.log(imageLink);
+    setTransformedImageLink(imageLink+``);
+  }
+}

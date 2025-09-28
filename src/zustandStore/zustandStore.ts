@@ -29,10 +29,14 @@ const useMyStore = create((set)=>({
     setCropMode:(cropMode:string)=>set({cropMode}),
     zoom:"",
     setZoom:(zoom:string)=>set({zoom}),
-    dpr:"dpr-auto",
+    dpr:"",
     setDpr:(dpr:string)=>set({dpr}),
     EditBarNo:1,
     setEditBarNo:(EditBarNo:number)=>set({EditBarNo}),
+    text:"",
+    setText:(text:string)=>set({text}),
+    textFont:20,
+    setTextFont:(textFont:number)=>set({textFont}),
    
 }))
 export default useMyStore;
