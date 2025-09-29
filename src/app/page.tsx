@@ -54,7 +54,7 @@ const UploadExample = () => {
     setIsDownloading,
     EditBarNo,
     setEditBarNo,
-  } = useMyStore();
+  } = useMyStore() as any;
 
   // Create a ref for the file input element to access its files easily
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -172,6 +172,7 @@ const UploadExample = () => {
       }
     }
   };
+  console.log("isTransforming:", isTransforming);
 
 
 
@@ -209,7 +210,13 @@ const UploadExample = () => {
 
         <div className="w-[70%] h-[59vh]  flex flex-row gap-[1rem] ">
           <div className="w-[75%] h-[100%] border-2 border-gray-400 rounded-[1.5rem] flex flex-row items-center justify-center p-4 ">
-            {imageLink && !transformedImageLink ? (
+            
+            {/* {
+              isTransforming && <>
+              <span className="text-white font-bold ">Transforming...{isTransforming}</span>
+              </>
+            }
+            {imageLink && !transformedImageLink && !isTransforming ? (
               <>
                 <img
                   src={imageLink}
@@ -217,7 +224,7 @@ const UploadExample = () => {
                   className="w-[100%] h-[100%] object-contain"
                 />
               </>
-            ) : imageLink && transformedImageLink ? (
+            ) : imageLink && transformedImageLink  ? (
               <img
                 src={transformedImageLink}
                 alt="image"
@@ -225,7 +232,34 @@ const UploadExample = () => {
               />
             ) : (
               <span className="text-white font-bold ">No image selected</span>
-            )}
+            )} */}
+            {
+              isTransforming ?(
+                <>
+                 <span className="text-white font-bold ">Transforming...{isTransforming}</span>
+                </>
+              ):imageLink && !transformedImageLink && !isTransforming ? (
+                <>
+                  <img
+                    src={imageLink}
+                    alt="image"
+                    className="w-[100%] h-[100%] object-contain"
+                  />
+                </>
+              ) : imageLink && transformedImageLink  ? (
+                <img
+                  src={transformedImageLink}
+                  alt="image"
+                  className="w-[100%] h-[100%] object-contain"
+                />
+              ) : (
+                <span className="text-white font-bold ">No image selected</span>
+              )
+              
+            }
+
+
+
           </div>
           <div className="flex-1 h-[100%] border-2 border-gray-400 rounded-[1.5rem]">
             {EditBarNo === 1 && (

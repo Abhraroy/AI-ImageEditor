@@ -6,9 +6,10 @@ import {
 } from "@/components/ui/accordion";
 import useMyStore from "@/zustandStore/zustandStore";
 import { handleTransform } from "@/utilityFunctions/utility1";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 export default function EditBar1() {
+  const isFirstRender = useRef<boolean>(true);
   const {
     imageLink,
     setImageLink,
@@ -49,6 +50,11 @@ export default function EditBar1() {
     // handleTransform(imageLink, setImageLink,t);
   };
   useEffect(() => {
+    if(isFirstRender.current){
+      isFirstRender.current = false;
+      return;
+    }
+
     console.log("transFormationInstructions:", transFormationInstructions);
     handleTransform(imageLink, setImageLink);
   }, [aspectRatio, width, height, imageFocus, cropMode, zoom, dpr]);

@@ -1,6 +1,7 @@
 import useMyStore from "@/zustandStore/zustandStore";
 
 export const handleTransform = (imageLink: string, setImageLink: any) => {
+  console.log("executing  handleTransform function");
   if (imageLink) {
     const {
       setTransformedImageLink,
@@ -17,17 +18,60 @@ export const handleTransform = (imageLink: string, setImageLink: any) => {
       changeBackground,
       generativeFill,
       editUsingAI,
+      setIsTransforming,
     } = useMyStore.getState() as any;
 
     console.log("Transform");
     console.log(imageLink);
-
+    
     console.log("transFormationInstructions:", transFormationInstructions);
     let newUrl =
       imageLink +
       `?tr=${text},${removeBackground},${changeBackground},${generativeFill},${editUsingAI},${aspectRatio},${width},${height},${cropMode},${imageFocus},${zoom},${dpr}`;
     console.log("New URL:", newUrl);
-    setTransformedImageLink(newUrl);
+
+
+    if (
+      text ||
+      removeBackground ||
+      changeBackground ||
+      generativeFill ||
+      editUsingAI ||
+      aspectRatio ||
+      width ||
+      height ||
+      cropMode ||
+      imageFocus ||
+      zoom ||
+      dpr
+    ) {
+      console.log(!text ,
+        removeBackground ,
+        changeBackground ,
+        generativeFill ,
+        editUsingAI ,
+        aspectRatio ,
+        width ,
+        height ,
+        cropMode ,
+        imageFocus ,
+        zoom ,
+        dpr)
+        setIsTransforming(true);
+      const img = new window.Image();
+      img.src = newUrl;
+      img.onload = () => {
+        setIsTransforming(false);
+        setTransformedImageLink(newUrl);
+      };
+
+      img.onerror = () => {
+        console.error("Failed to load transformed image");
+        setIsTransforming(false);
+      };
+    }else{
+      console.log("No transformation instructions");
+    }
   } else {
     console.log("No image link");
   }

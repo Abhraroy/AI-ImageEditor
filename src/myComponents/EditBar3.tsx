@@ -41,6 +41,7 @@ export default function EditBar3() {
   const widthRef = useRef<HTMLInputElement>(null);
   const heightRef = useRef<HTMLInputElement>(null);
   const generativeFillRefPrompt = useRef<HTMLInputElement>(null);
+  const isFirstRender = useRef<boolean>(true);
 
   const handleEditUsingAI = () => {
     handleTransform(imageLink, setImageLink);
@@ -62,6 +63,12 @@ export default function EditBar3() {
   }
 
   useEffect(() => {
+    if(isFirstRender.current){
+      isFirstRender.current = false;
+      return;
+    }
+
+    
    
     handleTransform(imageLink, setImageLink);
   }, [width, height,cropMode,imageFocus,removeBackground,changeBackground, editUsingAI]);

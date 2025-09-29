@@ -9,6 +9,7 @@ import { handleTransform } from "@/utilityFunctions/utility1";
 import { useEffect, useRef } from "react";
 
 export default function EditBar2() {
+  const isFirstRender = useRef<boolean>(true);
   const {
     imageLink,
     setImageLink,
@@ -53,6 +54,12 @@ export default function EditBar2() {
   useEffect(() => {
     // console.log("text:", text);
     // setText(`l-text,i-${text},fs-${textFont},l-end`);
+
+    if(isFirstRender.current){
+      isFirstRender.current = false;
+      return;
+    }
+
     handleTransform(imageLink, setImageLink);
   }, [text]);
 
