@@ -41,32 +41,39 @@ export default function EditBar2() {
     setText,
     textFont,
     setTextFont,
+    color,
+    setColor,
+    textPositionX,
+    setTextPositionX,
+    textPositionY,
+    setTextPositionY,
   } = useMyStore() as any;
 
   const textRef = useRef<HTMLInputElement>(null);
 
-  const handleTextAdd = () => {
-    setText(`l-text,i-${textRef.current?.value},fs-${textFont},l-end`);
-    textRef.current!.value = "";
+  const handleTextAdd = (c:string="black") => {
+    console.log("color:",color)
+    // if(color){
+    setText(`l-text,i-${textRef.current?.value},co-${c},fs-${textFont},lx-${textPositionX},ly-${textPositionY},l-end`);
+    // }else{
+    //   setText(`l-text,i-${textRef.current?.value},fs-${textFont},l-end`);
+    // }
+    console.log("text:",text)
   };
-
 
   useEffect(() => {
     // console.log("text:", text);
     // setText(`l-text,i-${text},fs-${textFont},l-end`);
-
-    if(isFirstRender.current){
+    console.log("color:",color)
+    console.log("text:",text)
+    if (isFirstRender.current) {
       isFirstRender.current = false;
       return;
     }
 
     handleTransform(imageLink, setImageLink);
   }, [text]);
-
-
-  
-
-
+console.log("color:",color)
   return (
     <>
       <div className="w-[100%] h-[100%]  flex flex-col items-center justify-around p-4 text-white gap-[1rem] ">
@@ -75,7 +82,7 @@ export default function EditBar2() {
             value="item-1"
             className="border-b-1  border-gray-800 "
           >
-            <AccordionTrigger>Resize & Crop</AccordionTrigger>
+            <AccordionTrigger>Add Image</AccordionTrigger>
             <AccordionContent>
               <div className="flex flex-col items-start gap-[1rem]  ">
                 <div className="flex flex-row items-center gap-[1rem]  ">
@@ -132,26 +139,90 @@ export default function EditBar2() {
             <AccordionTrigger>Add Text</AccordionTrigger>
             <AccordionContent>
               <div className="flex flex-col items-start gap-[1rem]  ">
-                <span>Text</span>
                 <input
                   type="text"
                   className="w-full text-white bg-gray-800 rounded-md p-2 outline-none "
                   placeholder="Enter text"
                   ref={textRef}
-                  onChange={handleTextAdd}
+                  onChange={()=>handleTextAdd()}
                 />
-                <button className="bg-gray-800 rounded-md p-2 outline-none ">
+                {/* <button className="bg-gray-800 rounded-md p-2 outline-none ">
                   Add Text
-                </button>
-                <input
-                  type="number"
-                  className="w-full text-white bg-gray-800 rounded-md p-2 outline-none "
-                  placeholder="Enter text"
-                  onChange={(e)=>{
-                    setTextFont(parseInt(e.target.value));
-                    handleTextAdd();
-                  }}
-                />
+                </button> */}
+            
+                <div className="w-full flex flex-nowrap flex-row items-center gap-[0.5rem] ">
+                  <label htmlFor="fontSize" className="text-white whitespace-nowrap font-bold bg-gray-800 rounded-md p-1 outline-none " >Font Size:</label>
+                  <input
+                    type="range"
+                    className="w-full text-white bg-gray-800 rounded-md  outline-none "
+                    min={10}
+                    max={100}
+                    step={1}
+                    onChange={(e) => {
+                      setTextFont(parseInt(e.target.value));
+                      handleTextAdd();
+                    }}
+                  />
+                    <span className="text-white whitespace-nowrap font-bold bg-gray-800 rounded-md p-2 outline-none " >{textFont}</span>
+                </div>
+                <div className="w-full flex flex-nowrap flex-row items-center gap-[0.5rem] ">
+                  <label htmlFor="pos-x" className="text-white whitespace-nowrap font-bold bg-gray-800 rounded-md p-1 outline-none " >Position X:</label>
+                  <input
+                    type="range"
+                    className="w-full text-white bg-gray-800 rounded-md  outline-none "
+                    min={0}
+                    max={2000}
+                    step={1}
+                    onChange={(e) => {
+                      setTextPositionX(parseInt(e.target.value));
+                      handleTextAdd();
+                    }}
+                  />
+                    <span className="text-white whitespace-nowrap font-bold bg-gray-800 rounded-md p-2 outline-none " >{textPositionX}</span>
+                </div>
+                <div className="w-full flex flex-nowrap flex-row items-center gap-[0.5rem] ">
+                  <label htmlFor="fontSize" className="text-white whitespace-nowrap font-bold bg-gray-800 rounded-md p-1 outline-none " >Position Y:</label>
+                  <input
+                    type="range"
+                    className="w-full text-white bg-gray-800 rounded-md  outline-none "
+                    min={0}
+                    max={1100}
+                    step={1}
+                    onChange={(e) => {
+                      setTextPositionY(parseInt(e.target.value));
+                      handleTextAdd();
+                    }}
+                  />
+                    <span className="text-white whitespace-nowrap font-bold bg-gray-800 rounded-md p-2 outline-none " >{textPositionY}</span>
+                </div>
+               
+                
+                
+                  <label htmlFor="colorSelect" className="text-white flex flex-row items-center gap-[1rem] " >Choose a color:</label>
+                  <div className="flex flex-row items-center gap-[1rem] ">
+                  <select
+                    id="colorSelect"
+                    name="color"
+                    className=" p-2 rounded text-white bg-gray-800 outline-none flex flex-row items-center gap-[1rem] "
+                    onChange={(e) => {setColor(e.target.value);handleTextAdd(e.target.value)}}
+                  >
+                    <option value="000000">Select Color</option>
+                    <option value="FF0000">Red</option>
+                    <option value="FFA500">Orange</option>
+                    <option value="FFFF00">Yellow</option>
+                    <option value="008000">Green</option>
+                    <option value="0000FF">Blue</option>
+                    <option value="4B0082">Indigo</option>
+                    <option value="EE82EE">Violet</option>
+                    <option value="000000">Black</option>
+                    <option value="FFFFFF">White</option>
+                  </select>
+                  <div className="w-[50px] h-[50px] rounded-md p-2 outline-1"
+                  style={{backgroundColor:`#${color}`}}
+                  
+                  ></div>
+                </div>
+                
               </div>
             </AccordionContent>
           </AccordionItem>
@@ -159,7 +230,7 @@ export default function EditBar2() {
             value="item-3"
             className="border-b-1  border-gray-800 "
           >
-            <AccordionTrigger>Pixel Ratio</AccordionTrigger>
+            <AccordionTrigger>Add Solid Color Blocks </AccordionTrigger>
             <AccordionContent>
               <div className="flex flex-col items-start gap-[1rem]  ">
                 <span>Device Pixel Ratio</span>

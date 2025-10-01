@@ -45,6 +45,12 @@ const useMyStore = create((set)=>({
     setGenerativeFill:(generativeFill:string)=>set({generativeFill}),
     editUsingAI:"",
     setEditUsingAI:(editUsingAI:string)=>set({editUsingAI}),
+    color:"Red",
+    setColor:(color:string)=>set({color}),
+    textPositionX:50,
+    setTextPositionX:(textPositionX:number)=>set({textPositionX}),
+    textPositionY:50,
+    setTextPositionY:(textPositionY:number)=>set({textPositionY}),
    
 }))
 export default useMyStore;
