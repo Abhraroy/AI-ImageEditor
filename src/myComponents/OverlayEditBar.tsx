@@ -166,6 +166,7 @@ export default function EditBar2() {
   
 
   useEffect(() => {
+    console.log(layer)
     if (isFirstRender.current) {
       isFirstRender.current = false;
       return;
@@ -367,15 +368,8 @@ export default function EditBar2() {
           <button
             className="bg-gray-800 rounded-md pt-2 pb-2 px-6 outline-none "
             onClick={() => {
-              setImageLink(transformedImageLink);
-            }}
-          >
-            Save
-          </button>
-          <button
-            className="bg-gray-800 rounded-md pt-2 pb-2 px-6 outline-none "
-            onClick={() => {
-              setTransformedImageLink(imageLink);
+              console.log("layer----",layer)
+              setLayer("")
             }}
           >
             Reset
