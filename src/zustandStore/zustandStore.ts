@@ -33,8 +33,8 @@ const useMyStore = create((set)=>({
     setDpr:(dpr:string)=>set({dpr}),
     EditBarNo:1,
     setEditBarNo:(EditBarNo:number)=>set({EditBarNo}),
-    text:"",
-    setText:(text:string)=>set({text}),
+    layer:"",
+    setLayer:(layer:string)=>set({layer}),
     textFont:20,
     setTextFont:(textFont:number)=>set({textFont}),
     removeBackground:"",
@@ -51,6 +51,12 @@ const useMyStore = create((set)=>({
     setTextPositionX:(textPositionX:number)=>set({textPositionX}),
     textPositionY:50,
     setTextPositionY:(textPositionY:number)=>set({textPositionY}),
+    solidColor:"",
+    setSolidColor:(solidColor:string)=>set({solidColor}),
+    Blockwidth:100,
+    setBlockwidth:(Blockwidth:number)=>set({Blockwidth}),
+    Blockheight:100,
+    setBlockheight:(Blockheight:number)=>set({Blockheight}),
    
 }))
 export default useMyStore;

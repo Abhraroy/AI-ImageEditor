@@ -18,6 +18,7 @@ export const handleTransform = (imageLink: string, setImageLink: any) => {
       changeBackground,
       generativeFill,
       editUsingAI,
+      layer,
       setIsTransforming,
     } = useMyStore.getState() as any;
 
@@ -27,12 +28,12 @@ export const handleTransform = (imageLink: string, setImageLink: any) => {
     console.log("transFormationInstructions:", transFormationInstructions);
     let newUrl =
       imageLink +
-      `?tr=${text},${removeBackground},${changeBackground},${generativeFill},${editUsingAI},${aspectRatio},${width},${height},${cropMode},${imageFocus},${zoom},${dpr}`;
+      `?tr=${layer},${removeBackground},${changeBackground},${generativeFill},${editUsingAI},${aspectRatio},${width},${height},${cropMode},${imageFocus},${zoom},${dpr}`;
     console.log("New URL:", newUrl);
 
 
     if (
-      text ||
+      layer ||
       removeBackground ||
       changeBackground ||
       generativeFill ||
@@ -45,7 +46,7 @@ export const handleTransform = (imageLink: string, setImageLink: any) => {
       zoom ||
       dpr
     ) {
-      console.log(!text ,
+      console.log(!layer ,
         removeBackground ,
         changeBackground ,
         generativeFill ,
@@ -66,7 +67,9 @@ export const handleTransform = (imageLink: string, setImageLink: any) => {
       };
 
       img.onerror = () => {
+
         console.error("Failed to load transformed image");
+        console.error("New URL:", newUrl);
         setIsTransforming(false);
       };
     }else{
@@ -89,11 +92,11 @@ export const handleOverlay = (imageLink: string, setImageLink: any) => {
       imageFocus,
       zoom,
       dpr,
-      text,
+      layer,
     } = useMyStore.getState() as any;
 
     console.log("Overlay");
     console.log(imageLink);
-    setTransformedImageLink(imageLink + ``);
+    setTransformedImageLink(imageLink + `?tr=${layer}`);
   }
 };

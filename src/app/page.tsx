@@ -25,13 +25,14 @@ import {
   upload,
 } from "@imagekit/next";
 import image from "next/image";
+import { FaRegShareSquare } from "react-icons/fa";
 
 import useMyStore from "@/zustandStore/zustandStore";
 
 import { useRef, useState } from "react";
-import EditBar1 from "@/myComponents/EditBar1";
-import EditBar2 from "@/myComponents/EditBar2";
-import EditBar3 from "@/myComponents/EditBar3";
+import EditBar1 from "@/myComponents/ResizeCropEditBar";
+import EditBar2 from "@/myComponents/OverlayEditBar";
+import EditBar3 from "@/myComponents/AiTransformationEditBar";
 import EditBar4 from "@/myComponents/EditBar4";
 import CustomTooltip from "@/myComponents/customtooltip";
 
@@ -174,31 +175,88 @@ const UploadExample = () => {
   };
   console.log("isTransforming:", isTransforming);
 
+  const handleDownload = async () => {
+    if (!imageLink || !transformedImageLink) return;
+  
+    try {
+      const response = await fetch(transformedImageLink, { mode: "cors" });
+      const blob = await response.blob();
+  
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+  
+      // Optional: extract file extension from original URL
+      const extension = transformedImageLink.split(".").pop()?.split("?")[0] || "png";
+      a.download = `my-picture.${extension}`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+  
+      window.URL.revokeObjectURL(url); // clean up
+    } catch (err) {
+      console.error("Download failed", err);
+    }
+  };
+
 
 
   return (
     <>
     <TooltipProvider>
-      <div className="flex flex-col items-center justify-center gap-[1rem] w-screen h-screen bg-black ">
-        <div className="w-[70%] h-[6vh]  rounded-[1.5rem] flex flex-row items-center gap-[1rem] ">
-          <input
-            className="bg-gray-300 text-black p-2 rounded-md hidden "
-            type="file"
-            ref={fileInputRef}
-            placeholder="Upload file"
-            onChange={handleFileChange}
-          />
-          <button
-            className="bg-blue-500 text-white p-2 rounded-md"
+      <div className="flex flex-col items-center justify-center gap-[1rem] w-screen h-screen   ">
+        <div className="w-[70%] relative h-[6vh]  rounded-[1.5rem] flex flex-row items-center justify-between gap-[1rem] ">
+         
+            <section className="flex items-center gap-[1rem] " >
+              <input
+                className="bg-gray-300 text-black p-2 rounded-md hidden shrink-0 "
+                type="file"
+                ref={fileInputRef}
+                placeholder="Upload file"
+                onChange={handleFileChange}
+              />
+              <button
+                className="bg-black/70 text-white p-2 rounded-md shrink-0 "
+                type="button"
+                onClick={openFileInput}
+              >
+                Upload file
+              </button>
+              {
+               progress > 0 && progress < 100 ?
+               <progress className="bg-blue-500 w-[15rem]  text-white shrink-0 "
+               
+               
+               value={progress} max={100}></progress>
+               :
+               <span></span>
+              }
+            </section>
+          {
+            !transformedImageLink ?
+            <button
+            className="bg-black/10 text-white p-2 rounded-md shrink-0 flex flex-row items-center justify-center gap-[0.5rem] disabled:opacity-50 disabled:cursor-not-allowed "
             type="button"
-            onClick={openFileInput}
+            disabled={true}
           >
-            Upload file
+            Export Image
+            <FaRegShareSquare />
           </button>
-          Upload progress: <progress value={progress} max={100}></progress>
+          :
+          <button
+            className="bg-black/70 text-white p-2 rounded-md shrink-0 flex flex-row items-center justify-center gap-[0.5rem] "
+            type="button"
+            disabled={false}
+            onClick={handleDownload}
+          >
+            Export Image
+            <FaRegShareSquare />
+          </button>
+          }
+          
         </div>
 
-        <div className="w-[70%] h-[6vh] border-2 border-gray-400 rounded-[1.5rem] flex flex-row items-center p-4  gap-[1rem] ">
+        <div className="w-[70%] h-[6vh] bg-black/50 backdrop-blur-4xl rounded-[1.5rem] flex flex-row items-center p-4  gap-[1rem] ">
           {imageLink ? (
             <>
               <span className="text-white font-bold ">{imageLink}</span>
@@ -209,34 +267,19 @@ const UploadExample = () => {
         </div>
 
         <div className="w-[70%] h-[59vh]  flex flex-row gap-[1rem] ">
-          <div className="w-[75%] h-[100%] border-2 border-gray-400 rounded-[1.5rem] flex flex-row items-center justify-center p-4 ">
+          <div className="w-[75%] h-[100%] relative bg-black/90 backdrop-blur-4xl rounded-[1.5rem] flex flex-row items-center justify-center p-4 ">
             
-            {/* {
-              isTransforming && <>
-              <span className="text-white font-bold ">Transforming...{isTransforming}</span>
-              </>
-            }
-            {imageLink && !transformedImageLink && !isTransforming ? (
-              <>
-                <img
-                  src={imageLink}
-                  alt="image"
-                  className="w-[100%] h-[100%] object-contain"
-                />
-              </>
-            ) : imageLink && transformedImageLink  ? (
-              <img
-                src={transformedImageLink}
-                alt="image"
-                className="w-[100%] h-[100%] object-contain"
-              />
-            ) : (
-              <span className="text-white font-bold ">No image selected</span>
-            )} */}
+            
             {
               isTransforming ?(
                 <>
-                 <span className="text-white font-bold ">Transforming...{isTransforming}</span>
+                 {/* <span className="text-white font-bold ">Transforming...{isTransforming}</span> */}
+                 <div className="w-full h-full bg-black/50 backdrop-blur-4xl rounded-[1.5rem] absolute " ></div>
+                 <img
+                    src={imageLink}
+                    alt="image"
+                    className="w-[100%] h-[100%] object-contain"
+                  />
                 </>
               ):imageLink && !transformedImageLink && !isTransforming ? (
                 <>
@@ -261,7 +304,7 @@ const UploadExample = () => {
 
 
           </div>
-          <div className="flex-1 h-[100%] border-2 border-gray-400 rounded-[1.5rem]">
+          <div className="flex-1 h-[100%] bg-black/90  rounded-[1.5rem]">
             {EditBarNo === 1 && (
             <EditBar1 />
             )}
