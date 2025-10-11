@@ -4,8 +4,10 @@ export const handleTransform = (imageLink: string, setImageLink: any) => {
   console.log("executing  handleTransform function");
   if (imageLink) {
     const {
+      transformedImageLink,
       setTransformedImageLink,
-      transFormationInstructions,
+      setUndoTransFormedImage,
+      undoTransFormedImage,
       aspectRatio,
       width,
       height,
@@ -23,9 +25,14 @@ export const handleTransform = (imageLink: string, setImageLink: any) => {
     } = useMyStore.getState() as any;
 
     console.log("Transform");
-    console.log(imageLink);
-
-    console.log("transFormationInstructions:", transFormationInstructions);
+    console.log(transformedImageLink)
+    console.log(undoTransFormedImage)
+    setUndoTransFormedImage(imageLink)
+   if(transformedImageLink){
+    console.log("Undoing transformation");
+    setUndoTransFormedImage(transformedImageLink)
+   }
+   
     let newUrl =
       imageLink +
       `?tr=${layer},${removeBackground},${changeBackground},${generativeFill},${editUsingAI},${aspectRatio},${width},${height},${cropMode},${imageFocus},${zoom},${dpr}`;
@@ -52,6 +59,8 @@ export const handleTransform = (imageLink: string, setImageLink: any) => {
       img.onload = () => {
         setIsTransforming(false);
         setTransformedImageLink(newUrl);
+        
+        
       };
 
       img.onerror = () => {
@@ -67,23 +76,23 @@ export const handleTransform = (imageLink: string, setImageLink: any) => {
   }
 };
 
-export const handleOverlay = (imageLink: string, setImageLink: any) => {
-  if (imageLink) {
-    const {
-      setTransformedImageLink,
-      transFormationInstructions,
-      aspectRatio,
-      width,
-      height,
-      cropMode,
-      imageFocus,
-      zoom,
-      dpr,
-      layer,
-    } = useMyStore.getState() as any;
+// export const handleOverlay = (imageLink: string, setImageLink: any) => {
+//   if (imageLink) {
+//     const {
+//       setTransformedImageLink,
+//       transFormationInstructions,
+//       aspectRatio,
+//       width,
+//       height,
+//       cropMode,
+//       imageFocus,
+//       zoom,
+//       dpr,
+//       layer,
+//     } = useMyStore.getState() as any;
 
-    console.log("Overlay");
-    console.log(imageLink);
-    setTransformedImageLink(imageLink + `?tr=${layer}`);
-  }
-};
+//     console.log("Overlay");
+//     console.log(imageLink);
+//     setTransformedImageLink(imageLink + `?tr=${layer}`);
+//   }
+// };

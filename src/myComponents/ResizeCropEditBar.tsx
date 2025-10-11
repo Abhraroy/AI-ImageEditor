@@ -5,7 +5,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import useMyStore from "@/zustandStore/zustandStore";
-import { handleTransform } from "@/utilityFunctions/utility1";
+import { handleTransform } from "@/utilityFunctions/imageTransformation";
 import { useEffect, useRef } from "react";
 
 export default function EditBar1() {
@@ -13,16 +13,8 @@ export default function EditBar1() {
   const {
     imageLink,
     setImageLink,
-    transformedImageLink,
+    undoTransFormedImage,
     setTransformedImageLink,
-    transFormationInstructions,
-    setTransFormationInstructions,
-    isTransforming,
-    setIsTransforming,
-    isUploading,
-    setIsUploading,
-    isDownloading,
-    setIsDownloading,
     aspectRatio,
     width,
     height,
@@ -40,22 +32,19 @@ export default function EditBar1() {
   } = useMyStore() as any;
 
   const handleAspectRatioChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    console.log(e.target.value);
+   
     let aspectRatio = e.target.value;
     aspectRatio = aspectRatio.replace(":", "-");
-    console.log(aspectRatio);
-    setTransFormationInstructions(`ar-${aspectRatio}`);
-    const t = `ar-${aspectRatio}`;
+    
     setAspectRatio(`ar-${aspectRatio}`);
-    // handleTransform(imageLink, setImageLink,t);
+   
   };
   useEffect(() => {
     if(isFirstRender.current){
       isFirstRender.current = false;
       return;
     }
-
-    console.log("transFormationInstructions:", transFormationInstructions);
+    console.log("Undo Image Link",undoTransFormedImage);
     handleTransform(imageLink, setImageLink);
   }, [aspectRatio, width, height, imageFocus, cropMode, zoom, dpr]);
 
@@ -189,18 +178,20 @@ export default function EditBar1() {
           <button className="bg-gray-800 rounded-md pt-2 pb-2 px-6 outline-none "
           
           onClick={()=>{
-            setImageLink(transformedImageLink);
-          }}
-          >
-            Save
-          </button>
-          <button className="bg-gray-800 rounded-md pt-2 pb-2 px-6 outline-none "
-          
-          onClick={()=>{
             setTransformedImageLink(imageLink);
           }}
           >
             Reset
+          </button>
+          <button className="bg-gray-800 rounded-md pt-2 pb-2 px-6 outline-none "
+          
+          onClick={()=>{
+            console.log("Undoing transformation");
+            console.log("Undo Image Link",undoTransFormedImage);
+            setTransformedImageLink(undoTransFormedImage);
+          }}
+          >
+            Undo 
           </button>
         </div>
       </div>

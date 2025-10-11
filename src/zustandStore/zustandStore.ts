@@ -6,16 +6,15 @@ const useMyStore = create((set)=>({
     setImageLink:(imageLink:string)=>set({imageLink}),
     transformedImageLink:null,
     setTransformedImageLink:(transformedImageLink:string)=>set({transformedImageLink}),
-    transFormationInstructions:"",
-    setTransFormationInstructions:(payload:string)=>set((state:any)=>({
-        transFormationInstructions:state.transFormationInstructions + payload
-    })),
+    
     isTransforming:false,
     setIsTransforming:(isTransforming:boolean)=>set({isTransforming}),
     isUploading:false,
     setIsUploading:(isUploading:boolean)=>set({isUploading}),
-    isDownloading:false,
-    setIsDownloading:(isDownloading:boolean)=>set({isDownloading}),
+    // isDownloading:false,
+    // setIsDownloading:(isDownloading:boolean)=>set({isDownloading}),
+    undoTransFormedImage:null,
+    setUndoTransFormedImage:(undoTransFormedImage:string)=>set({undoTransFormedImage}),
 
     aspectRatio:"",
     setAspectRatio:(aspectRatio:string)=>set({aspectRatio}),
@@ -35,8 +34,6 @@ const useMyStore = create((set)=>({
     setEditBarNo:(EditBarNo:number)=>set({EditBarNo}),
     layer:"",
     setLayer:(layer:string)=>set({layer}),
-    textFont:20,
-    setTextFont:(textFont:number)=>set({textFont}),
     removeBackground:"",
     setRemoveBackground:(removeBackground:string)=>set({removeBackground}),
     changeBackground:"",
@@ -47,16 +44,8 @@ const useMyStore = create((set)=>({
     setEditUsingAI:(editUsingAI:string)=>set({editUsingAI}),
     color:"Red",
     setColor:(color:string)=>set({color}),
-    textPositionX:50,
-    setTextPositionX:(textPositionX:number)=>set({textPositionX}),
-    textPositionY:50,
-    setTextPositionY:(textPositionY:number)=>set({textPositionY}),
     solidColor:"",
     setSolidColor:(solidColor:string)=>set({solidColor}),
-    Blockwidth:100,
-    setBlockwidth:(Blockwidth:number)=>set({Blockwidth}),
-    Blockheight:100,
-    setBlockheight:(Blockheight:number)=>set({Blockheight}),
    
 }))
 export default useMyStore;

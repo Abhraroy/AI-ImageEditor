@@ -5,7 +5,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import useMyStore from "@/zustandStore/zustandStore";
-import { handleTransform } from "@/utilityFunctions/utility1";
+import { handleTransform } from "@/utilityFunctions/imageTransformation";
 import { ChangeEvent, ReactEventHandler, useEffect, useRef } from "react";
 
 export default function EditBar2() {
@@ -13,44 +13,13 @@ export default function EditBar2() {
   const {
     imageLink,
     setImageLink,
-    transformedImageLink,
-    setTransformedImageLink,
-    transFormationInstructions,
-    setTransFormationInstructions,
-    isTransforming,
-    setIsTransforming,
-    isUploading,
-    setIsUploading,
-    isDownloading,
-    setIsDownloading,
-    aspectRatio,
-    width,
-    height,
-    imageFocus,
-    setAspectRatio,
-    setWidth,
-    setHeight,
-    setImageFocus,
-    cropMode,
-    setCropMode,
-    zoom,
-    setZoom,
-    setDpr,
-    dpr,
     layer,
     setLayer,
     color,
     setColor,
-    textPositionX,
-    setTextPositionX,
-    textPositionY,
-    setTextPositionY,
     solidColor,
     setSolidColor,
-    Blockwidth,
-    setBlockwidth,
-    Blockheight,
-    setBlockheight,
+    
   } = useMyStore() as any;
 
   const textRef = useRef<HTMLInputElement>(null);

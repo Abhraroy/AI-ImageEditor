@@ -5,7 +5,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import useMyStore from "@/zustandStore/zustandStore";
-import { handleTransform } from "@/utilityFunctions/utility1";
+import { handleTransform } from "@/utilityFunctions/imageTransformation";
 import { useEffect, useRef } from "react";
 
 export default function EditBar3() {
