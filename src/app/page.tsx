@@ -9,7 +9,7 @@ import {
 import { FaCropSimple,FaLayerGroup,FaWandMagicSparkles } from "react-icons/fa6";
 import { IoSparkles } from "react-icons/io5";
 
-
+import "./globals.css"
 
 
 
@@ -25,7 +25,8 @@ import {
   upload,
 } from "@imagekit/next";
 import image from "next/image";
-import { FaRegShareSquare } from "react-icons/fa";
+import { FaRegShareSquare,FaRegImage  } from "react-icons/fa";
+import { FaFileImage } from "react-icons/fa";
 
 import useMyStore from "@/zustandStore/zustandStore";
 
@@ -259,7 +260,7 @@ const UploadExample = () => {
               <span className="text-white font-bold ">{imageLink}</span>
             </>
           ) : (
-            <span className="text-white font-bold ">No image selected</span>
+            <span className="text-white spaceGrotesk ">No image selected</span>
           )}
         </div>
 
@@ -293,7 +294,10 @@ const UploadExample = () => {
                   className="w-[100%] h-[100%] object-contain"
                 />
               ) : (
-                <span className="text-white font-bold ">No image selected</span>
+               <div className=" relative w-full h-full flex flex-row items-center justify-center gap-[1rem] " > 
+               <span className="text-white text-2xl font-bold ">No image selected</span>
+               <FaFileImage className="text-white text-[15rem] absolute opacity-15 " />
+               </div>
               )
               
             }

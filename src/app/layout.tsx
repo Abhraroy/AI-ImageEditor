@@ -1,6 +1,31 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono,Fascinate,Charm ,Roboto,Space_Grotesk} from "next/font/google";
 import "./globals.css";
+
+
+const fascinate = Fascinate({
+  variable: "--font-fascinate",
+  weight: "400",          // choose available weights
+  subsets: ["latin"],     // required for character set
+});
+
+const charm = Charm({
+  variable: "--font-charm",
+  weight: "400",          // choose available weights
+  subsets: ["latin"],     // required for character set
+});
+
+const roboto = Roboto({
+  variable: "--font-roboto",
+  weight: "400",          // choose available weights
+  subsets: ["latin"],     // required for character set
+});
+
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-spaceGrotesk",
+  weight: "400",          // choose available weights
+  subsets: ["latin"],     // required for character set
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,10 +50,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gradient-to-b from-gray-900 via-gray-600 to-gray-300 `}
+        className={`${geistSans.variable} ${geistMono.variable} ${roboto.variable} ${spaceGrotesk.variable} antialiased bg-gradient-to-b from-gray-900 via-gray-600 to-gray-300 `}
       >
       <div className="w-[80vw]  h-[60px]   flex items-center justify-between mt-5 rounded-full p-5 " >
-        <span className="text-white text-6xl font-bold">PIXEDIT</span>
+        <span className={`${charm.className} text-white text-6xl`}>PIXEDIT</span>
         <div className="flex items-center justify-center gap-8">
           <span className="text-white text-xl font-bold">My Edits</span>
           <span className="text-white text-3xl font-bold bg-gray-900 rounded-md pt-2 pb-2 pl-4 pr-4">?</span>
