@@ -1,6 +1,4 @@
 <h1 align="center">
-  <img src="https://img.icons8.com/fluency/96/image-editing.png" width="80" alt="PixEdit Logo"/>
-  <br/>
   <span style="font-size: 2.5rem;">PixEdit</span>
 </h1>
 
