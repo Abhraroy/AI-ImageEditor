@@ -12,9 +12,13 @@ body {
   align-items: center;
   justify-content: center;
   user-select: none;
+  font-family: var(--font-josefin-sans), sans-serif;
+  font-size: 1rem;
 }
 *{
   box-sizing: border-box;
+  font-family: var(--font-josefin-sans), sans-serif;
+  font-size: 1rem;
 }
 
 @theme inline {
@@ -88,16 +92,21 @@ body {
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
- 
+  --font-josefin-sans: var(--font-josefin-sans);
 }
 
 .roboto{
   font-family: var(--roboto);
-  font-weight: 800;
+  color: white;
+  font-weight: bolder;
+  font-style:normal;
 }
 
 .spaceGrotesk{
   font-family: var(--font-spaceGrotesk);
+  color: white;
+  font-weight: bolder;
+  font-style:normal;
 }
 
 .dark {
@@ -132,6 +141,7 @@ body {
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+  --font-josefin-sans: var(--font-josefin-sans);
 }
 
 @layer base {
@@ -140,6 +150,15 @@ body {
   }
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-josefin-sans), sans-serif;
+    font-size: 1rem;
+  }
+  html {
+    font-family: var(--font-josefin-sans), sans-serif;
+    font-size: 1rem;
+  }
+  p, span, div, button, input, select, textarea, label, a, li, ul, ol, h1, h2, h3, h4, h5, h6 {
+    font-size: 1rem;
   }
 }
 
@@ -149,5 +168,12 @@ body {
   font-weight: 400;
   font-style: normal;
 }
+button:hover{
+  scale: 1.05;
+  transition: scale 0.3s ease-in-out;
+  cursor: pointer;
+  text-decoration: none;
+  
 
+}
 

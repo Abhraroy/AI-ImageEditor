@@ -8,7 +8,7 @@ import useMyStore from "@/zustandStore/zustandStore";
 import { handleTransform } from "@/utilityFunctions/imageTransformation";
 import { ChangeEvent, ReactEventHandler, useEffect, useRef } from "react";
 
-export default function EditBar2() {
+export default function OverlayEditBar() {
   const isFirstRender = useRef<boolean>(true);
   const {
     imageLink,
@@ -148,7 +148,7 @@ export default function EditBar2() {
     <>
       <div className="w-[100%] h-[100%]  flex flex-col items-center justify-around p-4 text-white gap-[1rem] ">
         <Accordion type="single" collapsible className="w-full  ">
-          <AccordionItem
+          {/* <AccordionItem
             value="item-1"
             className="border-b-1  border-gray-800 "
           >
@@ -156,7 +156,7 @@ export default function EditBar2() {
             <AccordionContent>
               <div className="flex flex-col items-start gap-[1rem]  "></div>
             </AccordionContent>
-          </AccordionItem>
+          </AccordionItem> */}
           <AccordionItem
             value="item-2"
             className="border-b-1  border-gray-800 "
@@ -185,6 +185,7 @@ export default function EditBar2() {
                     className="w-full text-white bg-gray-800 rounded-md  outline-none "
                     min={10}
                     max={100}
+                    defaultValue={10}
                     step={1}
                     onChange={(e) => {
                       handleTextFont(e);
@@ -263,7 +264,7 @@ export default function EditBar2() {
                   </select>
 
                   <div
-                    className="w-[50px] h-[50px] rounded-md p-2 outline-1"
+                    className="w-[50px] h-[50px] rounded-md p-2 outline-3 box-border "
                     style={{ backgroundColor: `#${solidColor}` }}
                   ></div>
                 </div>
@@ -302,6 +303,7 @@ export default function EditBar2() {
               className="w-full text-white bg-gray-800 rounded-md  outline-none "
               min={0}
               max={2000}
+              defaultValue={0}
               step={1}
               onChange={(e) => {
                 handleLayerPositionX(e.target.value)
@@ -323,6 +325,7 @@ export default function EditBar2() {
               className="w-full text-white bg-gray-800 rounded-md  outline-none "
               min={0}
               max={1100}
+              defaultValue={0}
               step={1}
               onChange={(e) => {
                 handleLayerPositionY(e.target.value)

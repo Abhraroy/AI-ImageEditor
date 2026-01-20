@@ -8,7 +8,7 @@ import useMyStore from "@/zustandStore/zustandStore";
 import { handleTransform } from "@/utilityFunctions/imageTransformation";
 import { useEffect, useRef } from "react";
 
-export default function EditBar3() {
+export default function AiTransformationEditBar() {
   const {
     imageLink,
     setImageLink,
@@ -148,7 +148,7 @@ export default function EditBar3() {
                   className="w-full text-white bg-gray-800 rounded-md p-2 outline-none "
                   placeholder="Enter Prompt (optional)"
                   ref={generativeFillRefPrompt}
-                  value="bg-genfill"
+                  // value="bg-genfill"
                   onChange={(e) =>
                     setGenerativeFill(`bg-genfill-prompt-${e.target.value}`)
                   }

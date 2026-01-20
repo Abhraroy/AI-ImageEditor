@@ -31,11 +31,14 @@ import { FaFileImage } from "react-icons/fa";
 import useMyStore from "@/zustandStore/zustandStore";
 
 import { useRef, useState } from "react";
-import EditBar1 from "@/myComponents/ResizeCropEditBar";
+import ResizeCropEditBar from "@/myComponents/ResizeCropEditBar";
 import EditBar2 from "@/myComponents/OverlayEditBar";
 import EditBar3 from "@/myComponents/AiTransformationEditBar";
-import EditBar4 from "@/myComponents/EditBar4";
+import EditBar4 from "@/myComponents/EffectsEnhancementsEditBar";
 import CustomTooltip from "@/myComponents/customtooltip";
+import OverlayEditBar from "@/myComponents/OverlayEditBar";
+import AiTransformationEditBar from "@/myComponents/AiTransformationEditBar";
+import EffectsEnhancementsEditBar from "@/myComponents/EffectsEnhancementsEditBar";
 
 // UploadExample component demonstrates file uploading using ImageKit's Next.js SDK.
 const UploadExample = () => {
@@ -192,6 +195,22 @@ const UploadExample = () => {
       document.body.removeChild(a);
   
       window.URL.revokeObjectURL(url); // clean up
+
+      // Save to localStorage
+      try {
+        const savedEdits = JSON.parse(localStorage.getItem("pixedit-saved-edits") || "[]");
+        const newEdit = {
+          id: Date.now().toString() + Math.random().toString(36).substr(2, 9),
+          url: transformedImageLink,
+          timestamp: Date.now(),
+        };
+        savedEdits.push(newEdit);
+        // Keep only the latest 100 edits
+        const trimmed = savedEdits.slice(-100);
+        localStorage.setItem("pixedit-saved-edits", JSON.stringify(trimmed));
+      } catch (storageError) {
+        console.error("Error saving to localStorage:", storageError);
+      }
     } catch (err) {
       console.error("Download failed", err);
     }
@@ -214,7 +233,7 @@ const UploadExample = () => {
                 onChange={handleFileChange}
               />
               <button
-                className="bg-black/70 text-white p-2 rounded-md shrink-0 "
+                className="bg-black/70 text-white p-2 rounded-md shrink-0 font-josefin-sans "
                 type="button"
                 onClick={openFileInput}
               >
@@ -233,9 +252,10 @@ const UploadExample = () => {
           {
             !transformedImageLink ?
             <button
-            className="bg-black/10 text-white p-2 rounded-md shrink-0 flex flex-row items-center justify-center gap-[0.5rem] disabled:opacity-50 disabled:cursor-not-allowed "
+            className="bg-black/30 pointer-events-none text-white p-2 rounded-md shrink-0 flex flex-row items-center justify-center gap-[0.5rem] disabled:opacity-50 disabled:cursor-not-allowed "
             type="button"
             disabled={true}
+            
           >
             Export Image
             <FaRegShareSquare />
@@ -295,8 +315,8 @@ const UploadExample = () => {
                 />
               ) : (
                <div className=" relative w-full h-full flex flex-row items-center justify-center gap-[1rem] " > 
-               <span className="text-white text-2xl font-bold ">No image selected</span>
-               <FaFileImage className="text-white text-[15rem] absolute opacity-15 " />
+               <span className="font-bold text-white" style={{ fontSize: '1rem' }}>No image selected</span>
+               <FaFileImage className="text-white text-[12rem] absolute opacity-15 " />
                </div>
               )
               
@@ -305,18 +325,18 @@ const UploadExample = () => {
 
 
           </div>
-          <div className="flex-1 h-[100%] bg-black/90  rounded-[1.5rem]">
+          <div className="flex-1 h-[100%] bg-black/90 pl-2 pr-2 rounded-[1.5rem]">
             {EditBarNo === 1 && (
-            <EditBar1 />
+            <ResizeCropEditBar />
             )}
             {EditBarNo === 2 && (
-              <EditBar2 />
+              <OverlayEditBar />
             )}
             {EditBarNo === 3 && (
-              <EditBar3 />
+              <AiTransformationEditBar />
             )}
             {EditBarNo === 4 && (
-              <EditBar4 />
+              <EffectsEnhancementsEditBar />
             )}
           </div>
         </div>

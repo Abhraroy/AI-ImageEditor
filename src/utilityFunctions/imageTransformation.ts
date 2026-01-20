@@ -22,6 +22,10 @@ export const handleTransform = (imageLink: string, setImageLink: any) => {
       editUsingAI,
       layer,
       setIsTransforming,
+      blur,
+      sharpen,
+      contrast,
+      grayscale,
     } = useMyStore.getState() as any;
 
     console.log("Transform");
@@ -35,7 +39,7 @@ export const handleTransform = (imageLink: string, setImageLink: any) => {
    
     let newUrl =
       imageLink +
-      `?tr=${layer},${removeBackground},${changeBackground},${generativeFill},${editUsingAI},${aspectRatio},${width},${height},${cropMode},${imageFocus},${zoom},${dpr}`;
+      `?tr=${layer},${removeBackground},${changeBackground},${generativeFill},${editUsingAI},${aspectRatio},${width},${height},${cropMode},${imageFocus},${zoom},${dpr},${blur},${sharpen},${contrast},${grayscale}`;
     console.log("New URL:", newUrl);
 
     // if (

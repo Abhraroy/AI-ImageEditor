@@ -8,7 +8,7 @@ import useMyStore from "@/zustandStore/zustandStore";
 import { handleTransform } from "@/utilityFunctions/imageTransformation";
 import { useEffect, useRef } from "react";
 
-export default function EditBar1() {
+export default function ResizeCropEditBar() {
   const isFirstRender = useRef<boolean>(true);
   const {
     imageLink,
@@ -56,28 +56,33 @@ export default function EditBar1() {
             value="item-1"
             className="border-b-1  border-gray-800 "
           >
-            <AccordionTrigger>Resize & Crop</AccordionTrigger>
-            <AccordionContent>
-              <div className="flex flex-col items-start gap-[1rem]  ">
+            <AccordionTrigger style={{ fontSize: '1rem' }}>Resize & Crop</AccordionTrigger>
+            <AccordionContent style={{ fontSize: '1rem' }}>
+              <div className="flex flex-col items-start gap-[1rem]" style={{ fontSize: '1rem' }}>
                 <div className="flex flex-row items-center gap-[1rem]  ">
                   <input
                     type="number"
+                    min="0"
                     className="w-full bg-gray-800 rounded-md p-2  outline-none "
                     placeholder="Width"
+                    style={{ fontSize: '1rem' }}
                     onChange={(e) => setWidth(`w-${e.target.value}`)}
                   />
                   <input
                     type="number"
+                    min="0"
                     className="w-full bg-gray-800 rounded-md p-2  outline-none"
                     placeholder="Height"
+                    style={{ fontSize: '1rem' }}
                     onChange={(e) => setHeight(`h-${e.target.value}`)}
                   />
                 </div>
-                <span>Aspect Ratio</span>
+                <span style={{ fontSize: '1rem' }}>Aspect Ratio</span>
                 <select
                   name="aspectRatio"
                   id="aspectRatio"
                   className=" p-2 rounded text-white bg-gray-800 outline-none "
+                  style={{ fontSize: '1rem' }}
                   onChange={handleAspectRatioChange}
                 >
                   <option>Custom</option>
@@ -89,11 +94,12 @@ export default function EditBar1() {
                   <option value="9:16">9:16 (Portrait)</option>
                   <option value="2.35:1">2.35:1 (Cinematic)</option>
                 </select>
-                <span>Crop Mode</span>
+                <span style={{ fontSize: '1rem' }}>Crop Mode</span>
                 <select
                   name="cropMode"
                   id="cropMode"
                   className=" p-2 rounded text-white bg-gray-800 outline-none "
+                  style={{ fontSize: '1rem' }}
                   onChange={(e) => setCropMode(`${e.target.value}`)}
                 >
                   <option>Custom</option>

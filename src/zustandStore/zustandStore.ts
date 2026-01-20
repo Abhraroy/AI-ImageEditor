@@ -46,6 +46,14 @@ const useMyStore = create((set)=>({
     setColor:(color:string)=>set({color}),
     solidColor:"",
     setSolidColor:(solidColor:string)=>set({solidColor}),
+    grayscale:"",
+    setGrayscale:(grayscale:string)=>set({grayscale}),
+    blur:"",
+    setBlur:(blur:string)=>set({blur}),
+    contrast:"",
+    setContrast:(contrast:string)=>set({contrast}),
+    sharpen:"",
+    setSharpen:(sharpen:string)=>set({sharpen}),
    
 }))
 export default useMyStore;
